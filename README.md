@@ -1,14 +1,14 @@
-# Teste A/B - Métodos de Preenchimento
+# Teste A/B/n - Taxa de Clicks no site
 
 <div align="center">
-<img src="img/ab-testing-split-min.jpg" />
+<img src="img/teste-ab-header.jpg" />
 </div>
 
 # Introdução
 
-Esse é um projeto end-to-end de Data Science, focado na especilização com Teste A/B. No qual identificamos qual é o melhor método de preenchimento de formulário de dados do cartão de crédito, e mostramos a importância de aplicar esse tipo de teste e suas diferentes vertentes.
+Esse é um projeto end-to-end de Data Science, focado na especilização com Teste A/B. No qual identificamos qual é melhor variante do site trouxe mais clicks para o ponto específico da página, e mostramos a importância de aplicar esse tipo de teste e suas diferentes vertentes.
 
-O conjunto de dados pode ser encontrado através desse link: [Repositório do Google Drive](https://drive.google.com/file/d/1oUJLeAgSaUI7CA-0F14KG0FzXEim7pSe/view)
+Os dados podem ser encontrados nesse repositório.
 
 Esse projeto faz parte da "Comunidade DS", que é um ambiente de estudo que promove o aprendizado, execução, e discussão de projetos de Data Science.
 
@@ -27,7 +27,7 @@ Esse projeto foi desenvolvido seguindo o método CRISP-DS(Cross-Industry Standar
 
 ![crisp!](img/crisp.png)
 
-Observação: Como esse não é um projeto com uso de Machine Learning, os ciclos do CRISP-DM foram usados no contexto do Teste A/B.
+Observação: Como esse não é um projeto com uso de Machine Learning, os ciclos do CRISP-DM foram usados no contexto do Teste A/B/n.
 
 ### Planejamento
 
@@ -45,22 +45,35 @@ Observação: Como esse não é um projeto com uso de Machine Learning, os ciclo
 
 ### 1.1 Descrição
 
-A Electronic House é um comercio online ( e-commerce ) de produtos de informática para casas e escritórios. Os clientes podem comprar mouses, monitores, teclados, computadores, laptops, cabos HDMI, fones de ouvido, cameras webcam, entre outros, através de um site online e recebem os produtos no conforto de suas casas.
+A universidade de Montada, nos Estados Unidos, possui vários serviços de apoio ao aluno, incluindo um biblioteca.
 
-Os produtos não são vendidos somente no Brasil, a Eletronic House está presente em diversos países da Europa e da América do Norte. O Diretor de Produtos Global pediu ao Head de Design que desenvolvesse uma nova forma de finalizar a compra com cartão de crédito, sem a necessidade do cliente preencher manualmente todas as informações do cartão e que funcionasse em todos os países.
+A biblioteca da universidade oferece vários serviços para os estudantes, como alocação de salas de estudos, livros, computadores, discussões em grupo, webnários e etc. Todos esses serviços e vários outros, ficam disponíveis dentro da página web da própria biblioteca e os alunos podem acessá-la para agendar algum dos serviços disponíveis.
 
-Depois de meses desenvolvendo esse dispositivo, o time de Desenvolvimento Backend entregou uma solução de pagamentos, na qual 90% das informações do formulário eram preenchido automaticamente.
+A página possuí um banner da universidade, uma barra de busca, três principais categorias de acesso e um barra lateral direita que exibi as últimas notícias.
 
-O Head de Designer gostaria de medir a efetividade do novo dispositivo de preenchimento automático dos dados do cartão de crédito na página de vendas e reportar os resultados ao Diretor de Produtos Global, para concluir se a nova forma de pagamento é realmente melhor do que a antiga.
+Durante o período de 3 de Abril de 2013 até 10 de Abril de 2013, a página “home” da biblioteca recebeu 10.819 visitantes. Ao analisar os dados de acesso da página, o time de TI da universidade percebeu uma grande diferença entre os acessos das categorias das páginas. **A taxa de click da “Find” foi de 35%, “Request” foi de 6% e “Interact” foi de 2%.**
 
-As duas páginas foram colocadas no ar e durante alguns meses e o time de Front-End desenvolveu uma automação que atribui um rótulo para cada cliente, mostrando qual a página de vendas aquele determinado cliente estava visualizando. Todos esses dados foram armazenados em um banco de dados e podem ser acessados pelos times da Electronic House.
+<div align="center">
+<img src="data\HomepageVersion1-Interact5-29-2013\Homepage Version 1 - Interact, 5-29-2013\Heatmap Homepage Version 1 - Interact, 5-29-2013.jpg" />
+</div>
+
+Olhando para as taxas de clicks, o time de TI se perguntou o motivo da conversão da categoria “Interact” estar tão baixa.
+
+Uma das hipóteses do time de TI foi de que o nome “Interact” está confundindo os alunos, pois não deixa claro o propósito daquela categoria. Assim, quatro novos nomes foram propostos para substituir o nome atual da categoria: “Connect”, “Learn”, “Help” e “Service”.
+
+<div align="center">
+<img src="img/variantes.png" />
+</div>
+
+Com as variações do nome da categoria, um teste A/B/n precisa ser definido para validar qual das variações deixa a categoria mais compreensível e atraente para os estudantes, com a expectativa de aumentar a taxa de clicks nessa categoria.
+
+Assim, um teste A/B/n foi realizado durante 3 semanas, entre os dias 29 de Maio de 2013 e 18 de Junho de 2013. O experimento foi desenhado para garantir que um usuário acessasse qualquer uma das variações com a mesma probabilidade.
 
 ### 1.2 Problema de Negócio
 
-O papel do Cientista de Dados foi ajudar o time de Designers a validar a efetividade do novo meio de
-pagamento, com mais confiança e rigidez na análise. E os entregáveis são:
+Você foi contratado como um freelancer pela universidade de Montana para ajudar o time de TI a avaliar os dados das variações da página home da biblioteca e dizer se alguma das variações é realmente melhor do que a atual. Em caso de resposta afirmativa, qual das variações seria a melhor e deveria substituir o nome da categoria atual. E os entregáveis são:
 
-**- Qual a melhor forma de pagamento: Preenchimento Manual ou Automático do formulário de dados do cartão de crédito?**
+**- Alguma das conversão é realmente melhor do que a atual? Qual seria o nome da variação?**
 
 # 2. Base de Dados e Premissas de Negócio
 
@@ -215,17 +228,17 @@ Assim, precisamos definir qual teste será usado, e para foi utilizado esse guia
 <img src="img/Testes de Hipóteses-2.png" />
 </div>
 
-Através do diagrama utilizaremos o Two Sample t-test, para isso os teste de Parametric Assumption foram feitos. 
+Através do diagrama utilizaremos o Two Sample t-test, para isso os teste de Parametric Assumption foram feitos.
 
 O resultado é um p-valor, onde se o p-valor for menor que o nível de significância, a hipótese nula é rejeitada, se for maior, significa que com esses dados não é possível rejeitar a hipótese nula. Assim apresentamos o resultado para diferentes lifts e métricas de sucesso:
 
-| **Lift** | **Spent** | **Purchases** |
-| ------------------- | ------------------- | ------------------- |
-| 1%  | Amostras insuficientes | Amostras insuficientes |
-| 5%  | Falha | Falha |
-| 10% | A < B | Falha |
-| 15% | Falha | Falha |
-| 20% | Falha | Falha |
+| **Lift** | **Spent**              | **Purchases**          |
+| -------- | ---------------------- | ---------------------- |
+| 1%       | Amostras insuficientes | Amostras insuficientes |
+| 5%       | Falha                  | Falha                  |
+| 10%      | A < B                  | Falha                  |
+| 15%      | Falha                  | Falha                  |
+| 20%      | Falha                  | Falha                  |
 
 Com esse resultado, **não podemos rejeitar a hipótese nula na maioria dos testes**, com excessão ao de lift de 10%. Contudo, esse teste nos provou que a média de de valor gasto no preenchimento automático é **10% MENOR** que a do preenchimento manual.
 
@@ -238,9 +251,9 @@ Como nossos dados iniciais apresentam features como país, gênero e device, pod
 Os testes de hipótese nos gêneros confirmam a impressão da EDA. Essa **variável não foi influenciada pelo tipo de preenchimento**, e com os dados disponíveis não é possível provar que há uma diferenla estatística entre as métricas tanto de spent quanto de purchases entre os grupos.
 
 | **Valor** | **Lift** | **Spent** | **Purchases** |
-| ------------------- | ------------------- | ------------------- | ------------------- |
-| Feminino | Todos  | Falha | Falha |
-| Masculino | Todos  | Falha | Falha |
+| --------- | -------- | --------- | ------------- |
+| Feminino  | Todos    | Falha     | Falha         |
+| Masculino | Todos    | Falha     | Falha         |
 
 ## 6.2 Device
 
@@ -249,9 +262,9 @@ Apesar de uma impressão inicial de que o preenchimento automático apresentava 
 Onde com os dados disponíveis **não é possível provar que há uma diferença estatística** entre as métricas tanto de spent quanto de purchases entre os grupos.
 
 | **Valor** | **Lift** | **Spent** | **Purchases** |
-| ------------------- | ------------------- | ------------------- | ------------------- |
-| Site | Todos  | Falha | Falha |
-| App | Todos  | Falha | Falha |
+| --------- | -------- | --------- | ------------- |
+| Site      | Todos    | Falha     | Falha         |
+| App       | Todos    | Falha     | Falha         |
 
 ## 6.3 País
 
@@ -262,17 +275,17 @@ Contudo, no México observamos que a média de de valor gasto no preenchimento a
 Em contrapartida Espanha apresenta valores estatisticamente **10% MENORES** em spent e purchases no preenchimento automático, evidenciando que a mudança não foi efetiva nesse país e que além disso, o resultado geral pode ser sido influenciado pelo resultado das pessoas desse país.
 
 | **Valor** | **Lift** | **Spent** | **Purchases** |
-| ------------------- | ------------------- | ------------------- | ------------------- |
-| MEX | 10% | A > B | Falha |
-| USA | Todos | Falha | Falha |
-| ESP | 10% | A < B | A < B |
-| GBR | Todos | Falha | Falha |
-| TUR | Todos | Falha | Falha |
-| DEU | Todos | Falha | Falha |
-| BRA | Todos | Falha | Falha |
-| FRA | Todos | Falha | Falha |
-| AUS | Todos | Falha | Falha |
-| CAN | Todos | Falha | Falha |
+| --------- | -------- | --------- | ------------- |
+| MEX       | 10%      | A > B     | Falha         |
+| USA       | Todos    | Falha     | Falha         |
+| ESP       | 10%      | A < B     | A < B         |
+| GBR       | Todos    | Falha     | Falha         |
+| TUR       | Todos    | Falha     | Falha         |
+| DEU       | Todos    | Falha     | Falha         |
+| BRA       | Todos    | Falha     | Falha         |
+| FRA       | Todos    | Falha     | Falha         |
+| AUS       | Todos    | Falha     | Falha         |
+| CAN       | Todos    | Falha     | Falha         |
 
 # 7. Resultados de Negócio
 
