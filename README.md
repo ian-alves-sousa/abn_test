@@ -82,28 +82,24 @@ Você foi contratado como um freelancer pela universidade de Montana para ajudar
 O conjunto de dados total possui os seguintes atributos:
 | **Atributos** | **Descrição** |
 | ------------------- | ------------------- |
-| uid | Identificador do Usuário |
-| country | Sigla do País que do usuário |
-| gender | Gênero do Usuário |
-| spent | Valor total gasto pelo usuário na compra |
-| purchases | Total de compras do usuário no dia |
-| date | Data da compra |
-| group | Tipo de Preenchimento - A: Automático B: Manual |
-| device | Meio de compra - I: Site A: App |
+| variant | Variante do site |
+| visits | Número de visitas no site |
+| clicks_all | Total de ckicks na página |
+| clicks_link | Total de cliques na variante |
+| conversion | Proporção de cliques na variante sobre o total de clicks |
 
 ## 2.2 Premissas de Negócio
 
 Para realizar esse projeto as seguintes premissas de negócio foram adotadas:
 
-- É preciso garantir que não há usuários que usaram mais de um tipo de preenchimento no período.
-- Há uma quantidade grande na população dos dados, para o teste iremos tirar uma amostra de acordo com os parâmetros definidos.
-- A resposta da qual precisamos responder não nos define uma variável de sucesso. E entre os dados que temos há algumas features que podem assumir essa posto de métrica de sucesso. Dessa forma, foram usadas duas métricas para medição de sucesso desse problema, spent e purchases.
-- As hipóteses de spent serão:<br>
-  **H0 - A média de valor gasto do preenchimento automático é IGUAL ao do preenchimento manual (Hipótese Nula)**<br>
-  **H1 - A média de valor gasto do preenchimento automático é DIFERENTE ao do preenchimento manual**
-- As hipóteses de purchases serão:<br>
-  **H0 - A média de compras do preenchimento automático é IGUAL ao do preenchimento manual (Hipótese Nula)**<br>
-  **H1 - A média de compras do preenchimento automático é DIFERENTE ao do preenchimento manual**
+- A métrica de conversão que foi considerada é a quantidade de cliques na variante sobre o total de cliques no site inteiro.
+- Os dados foram retirados de maneira manual para fazer o dataframe final e aplicar o Teste A/B/n.
+- As hipóteses do teste serão:<br>
+  **H0 - Não há nenhuma diferença entre o CTR das variantes da página**<br>
+  **H1 - Há diferença entre os CTR das variantes da página**
+- Depois é feito um Teste Post-Hoc onde as hipóteses são:<br>
+  **H0 - Não há nenhuma diferença entre o CTR das variantes A e B da página**<br>
+  **H1 - Há diferença entre o CTR das variantes A e B da página**
 
 # 3. Estratégia de Solução
 
