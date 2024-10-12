@@ -34,9 +34,9 @@ Observação: Como esse não é um projeto com uso de Machine Learning, os ciclo
 - [1. Descrição e Problema de Negócio](#1-descrição-e-problema-de-negócio)
 - [2. Base de Dados e Premissas de Negócio](#2-base-de-dados-e-premissas-de-negócio)
 - [3. Estratégia de Solução](#3-estratégia-de-solução)
-- [4. Análise Exploratória de Dados](#4-análise-exploratória-de-dados)
-- [5. Definição dos Parâmetros](#5-definição-dos-parâmetros)
-- [6. Teste de Hipóteses](#6-teste-de-hipóteses)
+- [4. Definição dos Parâmetros](#4-definição-dos-parâmetros)
+- [5. Teste de Hipóteses](#5-teste-de-hipóteses)
+- [6. Post Hoc Testing](#6-post-hoc-testing)
 - [7. Resultados de Negócio](#7-resultados-de-negócio)
 - [8. Conclusão](#8-conclusão)
 - [9. Aprendizados e Trabalhos Futuros](#9-aprendizados-e-trabalhos-futuros)
@@ -105,83 +105,29 @@ Para realizar esse projeto as seguintes premissas de negócio foram adotadas:
 
 A estratégia de solução foi a seguinte:
 
-### Passo 01. Análise descritiva dos dados
+### Passo 01. Coleta dos dados
 
-Nesse passo foi verificado alguns aspectos do conjunto de dados, como: nome de colunas, dimensões, tipos de dados, checagem e preenchimento de dados faltantes (NA), análise descritiva dos dados e quais suas variáveis categóricas.
-
-Além disso, testes de duplicidade das amostras foram feitos, e os usuários que estavam em mais de um grupo foram retirados, devido a quantidade de dados que temos inicialmente.
+Os dados não vieram estruturados para a aplicação do teste. Dessa forma, foi escolhido criar o dataframe com as informações de maneira manual, pegando das planilhas. Pois o principal intuito é a aplicação e entendimento do tipo do teste.
 
 ### Passo 02. Design do Experimento
 
 Nesse momento as hipóteses foram formadas, os parâmetros foram definidos em com isso o tamanho da amostra foi encontrado.
 
-### Passo 03. Exploration Data Analysis
-
-Com o intuito de ter um feeling inicial dos dados, algumas distribuições foram plotadas, com isso conseguimos ver como estavam distribuídos os dados.
-
-### Passo 04. Amostragem
-
-Com o tamanho da amostra definido, foi possível selecionar as amostras de ambos os grupos de forma aleatória e preparar os dados para o teste.
-
-### Passo 05. Teste de Hipóteses
+### Passo 03. Teste de Hipóteses
 
 A metodologia do teste de hipóteses foi aplicado, seguindo a lógica ensinado e o resultado encontrado.
 
-### Passo 06. Resultados de Negócio
+### Passo 04. Teste de Post-Hoc
 
-O teste de hipóteses foi automatizado e testado para diferentes valores de lift com o intuito de encontrar a resposta para a pergunta de negócio. Além disso, estratificações foram feitas, testes por país, gênero e device.
+Após a decisão de que a hipótese nula foi rejeitada, um outro teste é aplicado com o intuito de entender qual variante de fato foi a influenciadora para esse resultado.
 
-# 4. Análise Exploratória de Dados
+### Passo 05. Resultados de Negócio
 
-Essa análise foi focada em entender como a métrica de sucesso está distribuída entre os grupos.
+Respondendo a pergunta de negócio com base nas informações tiradas através do teste e trazendo os benefícios disso para o negócio.
 
-## 4.1 Geral
+# PAREI AQUI
 
-Tanto com spent como em purchases, vemos as distribuições dos dois grupos muito parecidas. Em spent temos o preenchimento automático com um valor um pouco menor nos Q3 e Q4.
-
-Contudo, esses valores nos dão a primeira impressão de igualdade entre os valores dos grupos e que realmente somente um teste estatístico pode definir se um dos tipos é melhor que o outro.
-
-<div align="center">
-<img src="img/4-geral.png" />
-</div>
-
-## 4.2 Dividido por País
-
-Essa igualdade se mantém ao analisarmos por país.
-
-Em spent as distribuições são em ESP, DEU e AUS (Espanha, Alemanha e Austrália respectivamente). Dessa forma, na Espanha temos uma impressão do preenchimento automático ter funcionado melhor que o preenchimento manual, fazendo os usuário gastarem mais devido a isso.
-
-O contrário pode ser dito para Austrália, com superioridade nos valores do preenchimento manual.
-
-<div align="center">
-<img src="img/4-spent-country.png" />
-</div>
-
-Em purchases apenas Espanha (ESP) mostra uma diferença na distribuição, e mesmo assim apenas nos valores do Q1.
-
-<div align="center">
-<img src="img/4-purchases-country.png" />
-</div>
-
-## 4.3 Dividido por Device
-
-Em purchases vemos uma distribuição praticamente igual entre os grupos e em ambos os devices. O cenário muda um pouco em spent, onde os valores do preenchimento automático perecem levemente menor que o do preenchimento manual.
-
-<div align="center">
-<img src="img/4-device.png" />
-</div>
-
-## 4.4 Dividido por Gênero
-
-Por gênero a diferença na distribuição é ainda menor, onde apenas para o gênero feminino em spent parece ter uma distribuição levemente mais baixa que para o preenchimento automático.
-
-Isso pode nos mostrar uma pequena influência dessa feature no resultado do teste de hipóteses.
-
-<div align="center">
-<img src="img/4-genero.png" />
-</div>
-
-# 5. Definição dos Parâmetros
+# 4. Definição dos Parâmetros
 
 A seguir daremos definições dos parâmetros e quais valores foram usados.
 
@@ -212,7 +158,38 @@ Com isso, o tamanho do efeito foi encontrado fazendo a **diferença entre o valo
 Com todos esse parâmetros encontramos o tamanho da amostra, que é a quantidade de observações ou indivíduos incluídos em um estudo ou experimento, essencial para garantir a validade e precisão dos resultados estatísticos.
 Os valores foram encontrados para cada lift, e os valores que encontrarmos de conversão estarão representando toda a população, considerando um nível de confiância de 95%.
 
-# 6. Teste de Hipóteses
+# 5. Teste de Hipóteses
+
+A seguir daremos definições dos parâmetros e quais valores foram usados.
+
+## 5.1 Nível de Confiança
+
+É a probabilidade de que o intervalo de confiança contenha o verdadeiro parâmetro da população. Nesse teste um valor padrão de **95%** foi utilizado.
+
+## 5.2 Nível de Significância
+
+Pode ser definido como a probabilidade de rejeitar a hipótese nula quando ela é verdadeira, denotada por α (alfa), é o inverso do nível de confiência. Nesse projeto o valor foi de **5%**
+
+## 5.3 Tamanho do Efeito
+
+Seria a magnitude da diferença entre grupos ou a força de uma relação entre variáveis, indicando a importância prática dos resultados. O tamanho do efeito nos diz que quando o efeito é facilmente detectável, o tamanho da amostra é menor, enquanto, quando o efeito é mínimo, é preciso de uma amostra bem maior para prová-lo.
+
+Entretanto, isso não foi definido por quem solicitou o teste, dessa forma podemos alterar os tamanhos do efeito, com o intuito de buscar um resultado com êxito no teste de hipóteses (desde que haja amostrar o suficiente).
+
+Assim, para definir esse valor primeiro definimos as métridas de spent e purchases, com isso, adicionamos um **lift de 1%, 5%, 10%, 15% e 20%**.
+
+Com isso, o tamanho do efeito foi encontrado fazendo a **diferença entre o valor pós lift e antes do mesmo, sobre o desvio médio padrão do valor da população**.
+
+## 5.4 Poder Estatístico
+
+É probabilidade de detectar um efeito, se ele realmente existir, denotado por 1 - β (beta), onde β é a taxa de falso negativo. Nesse projeto o valor padrão de **80%** foi utilizado.
+
+## 5.5 Tamanho da amostra
+
+Com todos esse parâmetros encontramos o tamanho da amostra, que é a quantidade de observações ou indivíduos incluídos em um estudo ou experimento, essencial para garantir a validade e precisão dos resultados estatísticos.
+Os valores foram encontrados para cada lift, e os valores que encontrarmos de conversão estarão representando toda a população, considerando um nível de confiância de 95%.
+
+# 6. Post Hoc Testing
 
 Através da amostra encontrada, foram calculadas as médias das métricas de sucessos para cada amostra, mas apenas comparar esses resultados não é o suficiente para provar que um tipo de preenchimento é melhor que o outro.
 
@@ -241,47 +218,6 @@ Com esse resultado, **não podemos rejeitar a hipótese nula na maioria dos test
 Ou seja, a nova funcionalidade não só não superou a funcionalidade anterior, como obteve um desempenho pior na questão do valor gasto.
 
 Como nossos dados iniciais apresentam features como país, gênero e device, podemos aprofundar a análise em cada uma delas, afim de levar não apenas o resultado final do teste, mas a conclusões um pouco mais aprofundadas.
-
-## 6.1 Gênero
-
-Os testes de hipótese nos gêneros confirmam a impressão da EDA. Essa **variável não foi influenciada pelo tipo de preenchimento**, e com os dados disponíveis não é possível provar que há uma diferenla estatística entre as métricas tanto de spent quanto de purchases entre os grupos.
-
-| **Valor** | **Lift** | **Spent** | **Purchases** |
-| --------- | -------- | --------- | ------------- |
-| Feminino  | Todos    | Falha     | Falha         |
-| Masculino | Todos    | Falha     | Falha         |
-
-## 6.2 Device
-
-Apesar de uma impressão inicial de que o preenchimento automático apresentava valores menores que o preenchimento manual, os **testes de hipótese no device nos mostram que essa feature também influencia pouco na performance dos preenchimentos**.
-
-Onde com os dados disponíveis **não é possível provar que há uma diferença estatística** entre as métricas tanto de spent quanto de purchases entre os grupos.
-
-| **Valor** | **Lift** | **Spent** | **Purchases** |
-| --------- | -------- | --------- | ------------- |
-| Site      | Todos    | Falha     | Falha         |
-| App       | Todos    | Falha     | Falha         |
-
-## 6.3 País
-
-Apesar da quantidade de países analisadas, não há diferenças estatísticas entre as médias da maioria deles.
-
-Contudo, no México observamos que a média de de valor gasto no preenchimento automático é **10% MAIOR** que a do preenchimento manual, mostrando que a mudança foi efetiva para compras nesse país.
-
-Em contrapartida Espanha apresenta valores estatisticamente **10% MENORES** em spent e purchases no preenchimento automático, evidenciando que a mudança não foi efetiva nesse país e que além disso, o resultado geral pode ser sido influenciado pelo resultado das pessoas desse país.
-
-| **Valor** | **Lift** | **Spent** | **Purchases** |
-| --------- | -------- | --------- | ------------- |
-| MEX       | 10%      | A > B     | Falha         |
-| USA       | Todos    | Falha     | Falha         |
-| ESP       | 10%      | A < B     | A < B         |
-| GBR       | Todos    | Falha     | Falha         |
-| TUR       | Todos    | Falha     | Falha         |
-| DEU       | Todos    | Falha     | Falha         |
-| BRA       | Todos    | Falha     | Falha         |
-| FRA       | Todos    | Falha     | Falha         |
-| AUS       | Todos    | Falha     | Falha         |
-| CAN       | Todos    | Falha     | Falha         |
 
 # 7. Resultados de Negócio
 
