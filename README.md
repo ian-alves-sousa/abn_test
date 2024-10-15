@@ -125,128 +125,109 @@ Após a decisão de que a hipótese nula foi rejeitada, um outro teste é aplica
 
 Respondendo a pergunta de negócio com base nas informações tiradas através do teste e trazendo os benefícios disso para o negócio.
 
-# PAREI AQUI
-
 # 4. Definição dos Parâmetros
 
 A seguir daremos definições dos parâmetros e quais valores foram usados.
 
-## 5.1 Nível de Confiança
+## 4.1 Nível de Confiança
 
 É a probabilidade de que o intervalo de confiança contenha o verdadeiro parâmetro da população. Nesse teste um valor padrão de **95%** foi utilizado.
 
-## 5.2 Nível de Significância
+## 4.2 Nível de Significância
 
 Pode ser definido como a probabilidade de rejeitar a hipótese nula quando ela é verdadeira, denotada por α (alfa), é o inverso do nível de confiência. Nesse projeto o valor foi de **5%**
 
-## 5.3 Tamanho do Efeito
+## 4.3 Tamanho do Efeito
 
 Seria a magnitude da diferença entre grupos ou a força de uma relação entre variáveis, indicando a importância prática dos resultados. O tamanho do efeito nos diz que quando o efeito é facilmente detectável, o tamanho da amostra é menor, enquanto, quando o efeito é mínimo, é preciso de uma amostra bem maior para prová-lo.
 
-Entretanto, isso não foi definido por quem solicitou o teste, dessa forma podemos alterar os tamanhos do efeito, com o intuito de buscar um resultado com êxito no teste de hipóteses (desde que haja amostrar o suficiente).
+Nesse teste a biblioteca do python statsmodels foi utilizada para definir esse parâmetro, e para isso foi usado o efeito esperado. Assim, o efeito que queremos provar é que a conversão de cliques na página é diferente da atual, que é 1,1%, assim será definido nosso Effect Size através da função chisquare_effectsize.
 
-Assim, para definir esse valor primeiro definimos as métridas de spent e purchases, com isso, adicionamos um **lift de 1%, 5%, 10%, 15% e 20%**.
-
-Com isso, o tamanho do efeito foi encontrado fazendo a **diferença entre o valor pós lift e antes do mesmo, sobre o desvio médio padrão do valor da população**.
-
-## 5.4 Poder Estatístico
+## 4.4 Poder Estatístico
 
 É probabilidade de detectar um efeito, se ele realmente existir, denotado por 1 - β (beta), onde β é a taxa de falso negativo. Nesse projeto o valor padrão de **80%** foi utilizado.
 
-## 5.5 Tamanho da amostra
+## 4.5 Tamanho da amostra
 
 Com todos esse parâmetros encontramos o tamanho da amostra, que é a quantidade de observações ou indivíduos incluídos em um estudo ou experimento, essencial para garantir a validade e precisão dos resultados estatísticos.
-Os valores foram encontrados para cada lift, e os valores que encontrarmos de conversão estarão representando toda a população, considerando um nível de confiância de 95%.
+
+Assim, foi encontrado que o tamanho de amostra para cada grupo é de 222 amostras, sendo no total (para os 5 grupos) 1.110. Como cada variante apresenta valores de cliques totais maiores que 1000, o tamanho da amostra não será um problema.
 
 # 5. Teste de Hipóteses
 
-A seguir daremos definições dos parâmetros e quais valores foram usados.
+O dataset criado inicialmente apresenta os valores das conversões dos cliques nas variantes, mas apenas comparar esses resultados não é o suficiente para provar que há uma diferença entre as variantes das páginas.
 
-## 5.1 Nível de Confiança
+Para isso faremos um teste de hipóteses, onde o intuito é rejeitar a hipótese nula, ou seja, que há uma diferença entre o CTR das variantes das páginas, seja alas quais forem.
 
-É a probabilidade de que o intervalo de confiança contenha o verdadeiro parâmetro da população. Nesse teste um valor padrão de **95%** foi utilizado.
+Como no último projeto conversão foi usado o Chi-Square Test, para esse será mantido o tipo de teste, adicionando apenas mais viriantes.
 
-## 5.2 Nível de Significância
+O resultado é um p-valor, onde se o p-valor for menor que o nível de significância, a hipótese nula é rejeitada, se for maior, significa que com esses dados não é possível rejeitar a hipótese nula. 
 
-Pode ser definido como a probabilidade de rejeitar a hipótese nula quando ela é verdadeira, denotada por α (alfa), é o inverso do nível de confiência. Nesse projeto o valor foi de **5%**
-
-## 5.3 Tamanho do Efeito
-
-Seria a magnitude da diferença entre grupos ou a força de uma relação entre variáveis, indicando a importância prática dos resultados. O tamanho do efeito nos diz que quando o efeito é facilmente detectável, o tamanho da amostra é menor, enquanto, quando o efeito é mínimo, é preciso de uma amostra bem maior para prová-lo.
-
-Entretanto, isso não foi definido por quem solicitou o teste, dessa forma podemos alterar os tamanhos do efeito, com o intuito de buscar um resultado com êxito no teste de hipóteses (desde que haja amostrar o suficiente).
-
-Assim, para definir esse valor primeiro definimos as métridas de spent e purchases, com isso, adicionamos um **lift de 1%, 5%, 10%, 15% e 20%**.
-
-Com isso, o tamanho do efeito foi encontrado fazendo a **diferença entre o valor pós lift e antes do mesmo, sobre o desvio médio padrão do valor da população**.
-
-## 5.4 Poder Estatístico
-
-É probabilidade de detectar um efeito, se ele realmente existir, denotado por 1 - β (beta), onde β é a taxa de falso negativo. Nesse projeto o valor padrão de **80%** foi utilizado.
-
-## 5.5 Tamanho da amostra
-
-Com todos esse parâmetros encontramos o tamanho da amostra, que é a quantidade de observações ou indivíduos incluídos em um estudo ou experimento, essencial para garantir a validade e precisão dos resultados estatísticos.
-Os valores foram encontrados para cada lift, e os valores que encontrarmos de conversão estarão representando toda a população, considerando um nível de confiância de 95%.
+Assim o valor encontrado foi de **2.09e-09**, um valor muito próximo de 0, bem menor que o nível de significância, o que **rejeita a hipótese nula**, indicando então que **existe uma diferença entre as conversões de cliques das variantes**.
 
 # 6. Post Hoc Testing
 
-Através da amostra encontrada, foram calculadas as médias das métricas de sucessos para cada amostra, mas apenas comparar esses resultados não é o suficiente para provar que um tipo de preenchimento é melhor que o outro.
+Contudo, isso ainda não prova o ponto principal do problema. **Existe uma diferença de CTR entre a páginal atual e as novas variantes?**.
 
-Para isso faremos um teste de hipóteses, onde o intuito é rejeitar a hipótese nula, ou seja, que o preencimento automático tem uma média de spent ou purchases menor que a do preenchimento manual.
+Para isso, utilizaremos o Post Hoc Testing, que é usado após uma análise estatística, para identificar **quais pares de grupos têm diferenças significativas entre si**. Ele compara cada par de grupos para descobrir onde exatamente essas diferenças ocorrem, ajudando a entender quais grupos realmente se diferenciam.
 
-Assim, precisamos definir qual teste será usado, e para foi utilizado esse guia:
+Dessa forma, as 5 variantes foram comparadas entre elas como pares, realizando o teste de hipótoses para cada, tirando assim o p-valor de cada comparação, onde se esse valor é menor que o nível de significância definido, há uma diferença significativa entre as conversões desse par, os resultados podem ser vistos a seguir:
 
-<div align="center">
-<img src="img/Testes de Hipóteses-2.png" />
-</div>
-
-Através do diagrama utilizaremos o Two Sample t-test, para isso os teste de Parametric Assumption foram feitos.
-
-O resultado é um p-valor, onde se o p-valor for menor que o nível de significância, a hipótese nula é rejeitada, se for maior, significa que com esses dados não é possível rejeitar a hipótese nula. Assim apresentamos o resultado para diferentes lifts e métricas de sucesso:
-
-| **Lift** | **Spent**              | **Purchases**          |
+| **Variante 1** | **Variante 2**  | **P-Valor**          |
 | -------- | ---------------------- | ---------------------- |
-| 1%       | Amostras insuficientes | Amostras insuficientes |
-| 5%       | Falha                  | Falha                  |
-| 10%      | A < B                  | Falha                  |
-| 15%      | Falha                  | Falha                  |
-| 20%      | Falha                  | Falha                  |
+| *interect* | *connect* | **0.00000054** |
+| interect | learn | 0.85 |
+| *interect* | *help* | **0.0062** |
+| *interect* | *sevices* | **0.0000009** |
+| *connect* | *learn* | **0.00044** |
+| connect | help | 0.088 |
+| connect | sevices | 1.0 |
+| learn | help | 0.085 |
+| *learn* | *sevices* | **0.00051** |
+| help | sevices | 0.091 |
 
-Com esse resultado, **não podemos rejeitar a hipótese nula na maioria dos testes**, com excessão ao de lift de 10%. Contudo, esse teste nos provou que a média de de valor gasto no preenchimento automático é **10% MENOR** que a do preenchimento manual.
+Com isso, observamos que **connet**, **help** e **sevices** apresentam uma diferença significativa de CTR ao comparado com o atual **interect**.
 
-Ou seja, a nova funcionalidade não só não superou a funcionalidade anterior, como obteve um desempenho pior na questão do valor gasto.
+Assim, já podemos inferir que entre os testes apresentados **connet**, **help** e **sevices** superam a conversão de **interect**, pois elas são maiores que a conversão da página atual e agora confirmado a diferença estatística. Mas entre essas opções, o que usar?
 
-Como nossos dados iniciais apresentam features como país, gênero e device, podemos aprofundar a análise em cada uma delas, afim de levar não apenas o resultado final do teste, mas a conclusões um pouco mais aprofundadas.
+Para responder essa pergunta, observamos se há uma diferença estatística entre essas variantes. Contudo, o teste mostra que não hpa diferença, podendo assumir que qualquer uma dessas variantes teriam um efeito próximo ao serem escolhidas, mas estatísticamente melhores que o atual.
+
+Na amostra coletada as conversões das páginas são:
+| **Variante** | **CTR**  |
+| -------- | ---------------------- |
+| interect | 1.13% |
+| connect | 3.33% |
+| learn | 1.27% |
+| help | 2.21% |
+| sevices | 3.33% |
+
+Nessa amostra as maiores conversões são de **sevices** e **connect**, contudo, o teste nos mostra que não há diferença estatística o resultado dessas variantes com **help**.
 
 # 7. Resultados de Negócio
 
 Respondendo as perguntas de negócio:
 
-**Qual a melhor forma de pagamento: Preenchimento Manual ou Automático do formulário de dados do cartão de crédito?**
+**Alguma das conversão é realmente melhor do que a atual? Qual seria o nome da variação?**
 
-Através do teste de hipóteses podemos provar que apesar de uma boa ideia, o Preenchimento Manual continua sendo a melhor forma para preencher os dados de cartão de crédito. Observamos que a média de valor gasto com compras nesse tipo de preenchiemnto é 10% maior que a média do valor gasto no preenchimento manual.
+Através do teste de hipóteses podemos provar que as conversões das novas páginas são melhores que a atual. Assim, há variantes que performam melhor que o utilizado atualmente.
 
-Com isso, a hipótese é que esse novo tipo de preenchimento não foi bem recebido pelos usuários, para saber exatamento o motivo seria interessante fazer um teste de usuabilidade.
+As variantes que performam melhor são: **connet**, **help** e **sevices**. Contudo não há uma diferença entre as conversões delas.
 
-Além disso, descobrimos que variáveis como gênero e device não influenciam na média de valor gasto e de compras para ambos os tipos de preenchimento.
-
-Por fim, em alguns lugares observamos uma preferência no tipo de preenchimento, como no México, que apresentou média de valor gasto 10% maior no preenchimento automático. Em contrapartida, na França de encontram os principais ofensores so novo tipo de preenchimento, onde a média de valor gasto de de compras é 10% menor no novo método.
+Sendo assim, é possível dizer que a utilização de qualquer uma delas traria uma conversão de cliques melhor que **interect**.
 
 # 8. Conclusão
 
 Nesse projeto, foram realizadas todas as etapas necessárias para a implementação de um projeto completo de Data Science focado na utilização do Teste A/B. Foi utilizado o método de gerenciamento de projeto chamado CRISP-DM/DS e obteve-se um desempenho satisfatório em compreender a utilização do teste A/B e aplicar em um problema real.
 
-Tendo em vista os resultados, o projeto alcançou seu objetivo de fazer o teste e provar para a empresa de forma estatística que o nov tipo de preenchimento não foi o esperado.
+Tendo em vista os resultados, o projeto alcançou seu objetivo de fazer o teste e provar para a empresa de forma estatística que a utilização das novas variantes para o lugar de interect trariam uma conversão de cliques melhor para essa parte do site.
 
 # 9. Aprendizados e Trabalhos Futuros
 
 **Aprendizados**
 
-- Compreensão e aplicação do Teste A/B com médias.
+- Compreensão e aplicação do Teste A/B/n com conversões.
 - Conceitos estatísticos e parâmetros com teste de hipóteses.
 
 **Trabalhos Futuros**
 
-- Aprofundar na análise do que influencia mais na compra ao invés do preenchimento do formulário.
-- Aplicar os testes nos páises com divergências maiores, segregando ainda mais, como com device e gênero.
+- Testar outros testes de hipóteses para esse problema para entender se há divergência no resultado.
