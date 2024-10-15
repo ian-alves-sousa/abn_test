@@ -201,7 +201,7 @@ Na amostra coletada as conversões das páginas são:
 | help | 2.21% |
 | sevices | 3.33% |
 
-Nessa amostra as maiores conversões são de **sevices** e **connect**, contudo, o teste nos mostra que não há diferença estatística o resultado dessas variantes com **help**.
+Nessa amostra as maiores conversões são de **sevices** e **connect**, contudo, o teste nos mostra que não há diferença estatística no resultado dessas variantes com **help**.
 
 # 7. Resultados de Negócio
 
