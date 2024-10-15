@@ -1,4 +1,4 @@
-# Teste A/B/n - Taxa de Clicks no site
+# Teste A/B/n - Taxa de Cliques no site
 
 <div align="center">
 <img src="img/teste-ab-header.jpg" />
